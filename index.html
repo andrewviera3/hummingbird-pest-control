@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.1.0/dist/tabler-icons.min.css">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
   :root{
     --pine:#1C5A52; --teal:#5EA592; --sage:#A9D5CA; --pale:#E9F3EE;
@@ -224,7 +227,7 @@
       </span>
     </a>
     <div class="hdr-right">
-      <a class="phone" href="tel:+1403XXXXXXX"><i class="ti ti-phone"></i><span class="label">[403-XXX-XXXX]</span></a>
+      <a class="phone" href="tel:+18253653317"><i class="ti ti-phone"></i><span class="label">(825) 365-3317</span></a>
       <a class="btn btn-amber" href="#quote">Get a Free Quote</a>
     </div>
   </div>
@@ -246,18 +249,19 @@
     <div class="form-card" id="quote">
       <h3>Get your free quote in 60 seconds</h3>
       <p class="sm">No obligation. We'll call you back within the hour.</p>
-      <form action="https://formsubmit.co/andrew@ameritank.co" method="POST">
+      <form id="quoteForm" action="https://formsubmit.co/andrew@whatisbuggingyou.com" method="POST">
         <input type="hidden" name="_subject" value="New quote request - Hummingbird Pest Control">
         <input type="hidden" name="_captcha" value="false">
-        <input type="text" name="_honey" style="display:none">
+        <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_next" value="https://whatisbuggingyou.com/?sent=1">
+        <input type="text" name="_honey" style="display:none">
         <input type="text" name="name" placeholder="Your name" required>
         <input type="tel" name="phone" placeholder="Phone number" required>
         <input type="text" name="postal_code" placeholder="Postal code" required>
         <select name="pest_problem" required><option value="">What's bugging you?</option><option>Ants</option><option>Spiders</option><option>Wasps or hornets</option><option>Mice or rats</option><option>Cockroaches</option><option>Not sure yet</option></select>
-        <button type="submit" class="btn btn-amber">Get My Free Quote</button>
+        <button type="submit" class="btn btn-amber" id="quoteSubmit">Get My Free Quote</button>
       </form>
-      <p class="fine">Or call us now at [403-XXX-XXXX]</p>
+      <p class="fine">Prefer to talk now? <a href="tel:+18253653317" style="color:var(--pine);font-weight:600">Call (825) 365-3317</a></p>
     </div>
   </div>
 </section>
@@ -404,7 +408,7 @@
     <p>Free quote in 60 seconds. Same-day service available across Calgary.</p>
     <div class="cta-row">
       <a class="btn btn-amber" href="#quote">Get a Free Quote</a>
-      <a class="phone-big" href="tel:+1403XXXXXXX"><i class="ti ti-phone"></i> [403-XXX-XXXX]</a>
+      <a class="phone-big" href="tel:+18253653317"><i class="ti ti-phone"></i> (825) 365-3317</a>
     </div>
   </div>
 </section>
@@ -429,7 +433,7 @@
     <div>
       <h4>Get in touch</h4>
       <ul>
-        <li><i class="ti ti-phone"></i> [403-XXX-XXXX]</li>
+        <li><i class="ti ti-phone"></i> <a href="tel:+18253653317">(825) 365-3317</a></li>
         <li><i class="ti ti-mail"></i> [hello@yourdomain.ca]</li>
         <li><i class="ti ti-clock"></i> Mon-Sat, 7am-7pm</li>
       </ul>
@@ -441,11 +445,38 @@
   </div>
 </footer>
 
+<div id="thanksModal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(28,43,46,.6);align-items:center;justify-content:center;padding:20px">
+  <div style="background:#fff;border-radius:18px;max-width:420px;width:100%;padding:34px 30px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+    <div style="width:56px;height:56px;border-radius:50%;background:#E9F3EE;display:flex;align-items:center;justify-content:center;margin:0 auto 16px"><i class="ti ti-check" style="font-size:30px;color:#1C5A52"></i></div>
+    <h3 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:23px;color:#22312E;margin-bottom:8px">Request received!</h3>
+    <p style="color:#5C6C68;font-size:15px;line-height:1.6;margin-bottom:22px">We'll call you back within the hour (7am to 7pm). Want it handled today? Call us right now and we'll get you booked first.</p>
+    <a href="tel:+18253653317" class="btn btn-amber" style="width:100%;justify-content:center;font-size:18px;padding:16px 20px"><i class="ti ti-phone"></i> Call (825) 365-3317</a>
+    <button type="button" onclick="document.getElementById('thanksModal').style.display='none'" style="margin-top:14px;background:none;border:none;color:#5C6C68;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif">No thanks, I'll wait for your call</button>
+  </div>
+</div>
 <script>
-if (location.search.indexOf('sent=1') !== -1) {
-  var fc = document.getElementById('quote');
-  if (fc) fc.innerHTML = '<h3 style="color:#1C5A52">Request received!</h3><p class="sm">Thanks, we got it. A Hummingbird tech will call you back within the hour (7am-7pm).</p>';
-}
+(function(){
+  var modal = document.getElementById('thanksModal');
+  var form = document.getElementById('quoteForm');
+  function showThanks(){ if(modal) modal.style.display='flex'; }
+  if (form) {
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var btn = document.getElementById('quoteSubmit');
+      var label = btn ? btn.textContent : '';
+      if (btn){ btn.textContent='Sending...'; btn.disabled=true; }
+      fetch('https://formsubmit.co/ajax/andrew@whatisbuggingyou.com', {
+        method:'POST', headers:{'Accept':'application/json'}, body:new FormData(form)
+      }).then(function(r){return r.json();}).then(function(){
+        form.reset(); if(btn){btn.textContent=label; btn.disabled=false;} showThanks();
+      }).catch(function(){
+        form.reset(); if(btn){btn.textContent=label; btn.disabled=false;} showThanks();
+      });
+    });
+  }
+  if (location.search.indexOf('sent=1') !== -1) { showThanks(); }
+  if (modal){ modal.addEventListener('click', function(e){ if(e.target===modal) modal.style.display='none'; }); }
+})();
 </script>
 </body>
 </html>
