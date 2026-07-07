@@ -80,9 +80,11 @@
   /* pests grid */
   .pests{background:var(--white)}
   .pest-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-  .pest{background:var(--cream);border:1px solid var(--mist);border-radius:12px;padding:22px 18px;text-align:center}
-  .pest i{font-size:30px;color:var(--teal)}
-  .pest b{display:block;font-family:'Poppins',sans-serif;font-weight:600;font-size:15px;margin-top:10px;color:var(--charcoal)}
+  .pest{position:relative;overflow:hidden;background:linear-gradient(155deg, var(--pale) 0%, #ffffff 68%);border:1px solid var(--mist);border-radius:14px;padding:26px 18px;text-align:center;transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease}
+  .pest:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(28,90,82,.13);border-color:var(--teal)}
+  .pest-wm{position:absolute;right:-16px;bottom:-20px;font-size:108px;line-height:1;color:var(--teal);opacity:.09;transform:rotate(-12deg);pointer-events:none}
+  .pest-ico{position:relative;z-index:1;font-size:32px;color:var(--teal)}
+  .pest b{position:relative;z-index:1;display:block;font-family:'Poppins',sans-serif;font-weight:600;font-size:15px;margin-top:10px;color:var(--charcoal)}
 
   /* steps */
   .steps{background:var(--cream)}
@@ -284,14 +286,14 @@
       <h2>From ants to mice, we've got it covered</h2>
     </div>
     <div class="pest-grid">
-      <div class="pest"><i class="ti ti-bug"></i><b>Ants</b></div>
-      <div class="pest"><i class="ti ti-spider"></i><b>Spiders</b></div>
-      <div class="pest"><i class="ti ti-bug"></i><b>Wasps &amp; hornets</b></div>
-      <div class="pest"><i class="ti ti-mouse"></i><b>Mice &amp; rats</b></div>
-      <div class="pest"><i class="ti ti-bug"></i><b>Cockroaches</b></div>
-      <div class="pest"><i class="ti ti-bug"></i><b>Silverfish</b></div>
-      <div class="pest"><i class="ti ti-bug"></i><b>Boxelder bugs</b></div>
-      <div class="pest"><i class="ti ti-paw"></i><b>Wildlife</b></div>
+      <div class="pest"><i class="ti ti-bug pest-wm" aria-hidden="true"></i><i class="ti ti-bug pest-ico"></i><b>Ants</b></div>
+      <div class="pest"><i class="ti ti-spider pest-wm" aria-hidden="true"></i><i class="ti ti-spider pest-ico"></i><b>Spiders</b></div>
+      <div class="pest"><i class="ti ti-bug pest-wm" aria-hidden="true"></i><i class="ti ti-bug pest-ico"></i><b>Wasps &amp; hornets</b></div>
+      <div class="pest"><i class="ti ti-mouse pest-wm" aria-hidden="true"></i><i class="ti ti-mouse pest-ico"></i><b>Mice &amp; rats</b></div>
+      <div class="pest"><i class="ti ti-bug pest-wm" aria-hidden="true"></i><i class="ti ti-bug pest-ico"></i><b>Cockroaches</b></div>
+      <div class="pest"><i class="ti ti-bug pest-wm" aria-hidden="true"></i><i class="ti ti-bug pest-ico"></i><b>Silverfish</b></div>
+      <div class="pest"><i class="ti ti-bug pest-wm" aria-hidden="true"></i><i class="ti ti-bug pest-ico"></i><b>Boxelder bugs</b></div>
+      <div class="pest"><i class="ti ti-paw pest-wm" aria-hidden="true"></i><i class="ti ti-paw pest-ico"></i><b>Wildlife</b></div>
     </div>
   </div>
 </section>
